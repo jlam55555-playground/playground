@@ -11,8 +11,8 @@ sign x | x > 0 = 1
 
 -- case statements
 myTake m ys = case (m,ys) of
-                (0,_) -> []
-                (_,[]) -> []
+                (0,_)    -> []
+                (_,[])   -> []
                 (n,x:xs) -> x : myTake (n-1) xs
 
 -- a client-server example
