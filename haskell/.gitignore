@@ -1,0 +1,3 @@
+# Haskell compiled object files and object interface files
+*.o
+*.hi
