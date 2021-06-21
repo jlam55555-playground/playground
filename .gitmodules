@@ -1,0 +1,3 @@
+[submodule "scheme/sicp"]
+	path = scheme/sicp
+	url = git@github.com:jlam55555/sicp
