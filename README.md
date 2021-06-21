@@ -1,2 +1,3 @@
 # playground
-Purposeful playground for learning languages
+
+Playground for messing around with tutorials for random things I want to learn

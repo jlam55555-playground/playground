@@ -1,0 +1,6 @@
+# built files
+*.o
+src/kernel
+
+# logs
+bochsout.txt

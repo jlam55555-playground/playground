@@ -1,0 +1,35 @@
+Files:
+
+-----
+bochsrc.txt: configuration file for Bochs
+
+You may have to change the location of the romimage and vgaromimage depending
+on the bochs installation. See bochs(1).
+
+This emulates an IA32 machine 32MB with a slowed down CPU.
+
+-----
+Makefile: the Makefile
+
+Orchestrates compilation and linkage of the source files into the kernel image.
+Compiles using NASM rather than GNU as.
+
+-----
+Link.ld: configuration script for the GNU ld linker
+
+Tells the linker that the start location of the binary should be the
+"start", the .text section should go first and begin at 0x100000 (1MB).
+The .data and .bss should be next and page-aligned. We bundle in the
+.rodata region with the data region for simplicity.
+
+-----
+update_image.sh: copies the kernel binary into the floppy image file
+
+-----
+run_bochs.sh: run the kernel using bochs
+
+-----
+boot.s: initial boot code
+
+Most of this file involves setting up the Multiboot header. Multiboot is a
+standard for boot sequences.
