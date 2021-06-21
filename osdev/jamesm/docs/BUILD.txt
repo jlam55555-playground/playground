@@ -1,0 +1,11 @@
+In the top-level of this directory (the level above the docs folder), run:
+
+```bash
+make -C src clean all
+./update_image.sh
+./run_bochs.sh
+```
+
+The final two commands will probably prompt you to enter your root password.
+
+An output log will be written to bochsout.txt.

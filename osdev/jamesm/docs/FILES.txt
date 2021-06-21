@@ -8,11 +8,20 @@ on the bochs installation. See bochs(1).
 
 This emulates an IA32 machine 32MB with a slowed down CPU.
 
+To make this work with the latest version of bochs (2.6.11), I had to take out
+the BIOS start address[1] and change the IPS to 1000000 (the minimum allowed
+by this version).
+
+[1]: https://sourceforge.net/p/bochs/mailman/message/13396550/
+
 -----
 Makefile: the Makefile
 
 Orchestrates compilation and linkage of the source files into the kernel image.
 Compiles using NASM rather than GNU as.
+
+An extra cc flag has to be added to compile in i386 rather than the default
+(x86_64).
 
 -----
 Link.ld: configuration script for the GNU ld linker
