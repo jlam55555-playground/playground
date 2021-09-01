@@ -1,0 +1,9 @@
+[package]
+name = "art-jlam55555"
+version = "0.1.0"
+edition = "2018"
+authors = ["Jonathan Lam <jlam55555@gmail.com>"]
+description = "Test crate from TRPL"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
