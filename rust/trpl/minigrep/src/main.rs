@@ -6,9 +6,7 @@ use std::process;
 // parsing code); this allows you to test your code (`main.rs` cannot
 // be tested directly)
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = minigrep::Config::new(&args).unwrap_or_else(|err| {
+    let config = minigrep::Config::new(env::args()).unwrap_or_else(|err| {
         eprintln!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
