@@ -1,3 +1,3 @@
 # Real World OCaml
 
-https://dev.realworldocaml.org/o
+https://dev.realworldocaml.org/
