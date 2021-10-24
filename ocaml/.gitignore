@@ -1,0 +1,6 @@
+# built outputs
+_build/
+*.cmi
+*.cmo
+*.byte
+*.out
