@@ -1,0 +1,4 @@
+(executable
+ (public_name ounit_test)
+ (name main)
+ (libraries sum))

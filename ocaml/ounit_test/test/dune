@@ -1,0 +1,3 @@
+(test
+ (name ounit_test)
+ (libraries ounit2 sum))

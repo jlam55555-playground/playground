@@ -30,3 +30,12 @@
  * *)
 
 (* no list comprehension syntax built-into the language *)
+
+(* variant types can be defined like the following;
+ * note that the later definition will prevail if there are multiple
+ * constructors with the same name, unless we explicitly declare the
+ * type of `x` to be `t1`
+ * *)
+type t1 = C | D
+type t2 = D | E
+let x = D
