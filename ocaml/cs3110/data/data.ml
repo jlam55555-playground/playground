@@ -1,3 +1,6 @@
+open Base
+open Stdio
+
 (* lists: if the element of a list has type `t`, then the list is
  * of type `t list` -- this is read from right to left;
  *
@@ -39,3 +42,48 @@
 type t1 = C | D
 type t2 = D | E
 let x = D
+
+(* variant type syntax *)
+type ptype = TNormal | TFire | TWater
+type peff = ENormal | ENotVery | ESuper
+
+(* record type syntax *)
+type mon = { name: string
+           ; hp: int
+           ; ptype: ptype
+           }
+
+let _ =
+  let c = { name="Charmander"; hp=39; ptype=TFire } in
+  match c with { name=n; hp=h; ptype=t } -> h |> Int.to_string |> Stdio.print_endline ;
+    match c with { name; hp; ptype } -> hp |> Int.to_string |> Stdio.print_endline ;
+      (* record update syntax *)
+      let c2 = { c with name="Charmeleon"; hp=58 } in
+      match c2 with {hp} -> hp |> Int.to_string |> Stdio.print_endline
+
+(* tuples type syntax; note that parens are (usually) optional, unless operation
+ * precedence is an issue
+ * *)
+let _ =
+  match 1,2,3 with
+  | x,y,z -> x + y + z
+
+(* sum vs. product types:
+ * - variant types are "sum types", which are one of a number of types
+ * - tuple types are "product types" (product as in cartesian product), which
+ *   means they include all of the types
+ * *)
+
+(* advanced pattern matching *)
+(* "or" patterns, constant matching, pattern guards *)
+let _ = match 5 with
+  | x when x >= 1 && x <= 3 -> "1 or 2 or 3"
+  | 4 | 5 -> "4 or 5"
+  | _ -> "other"
+
+(* character ranges and as-patterns *)
+let _ = match 'F' with
+  | 'a'..'z' as c -> c
+  | 'A'..'Z' as c -> Char.lowercase c
+  | _ -> failwith "not a letter"
+
