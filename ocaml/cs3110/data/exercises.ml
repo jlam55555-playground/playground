@@ -21,8 +21,7 @@ let rec concat = function
   | [] -> ""
   | x::xs -> x ^ concat xs
 
-(* product test *)
-(* TODO *)
+(* product test: see exercises_test.ml *)
 
 (* patterns *)
 let first_bigred = function
@@ -43,13 +42,12 @@ let get_fifth lst =
   then 0
   else List.nth lst 5
 
-let sort_desc_list = List.rev << List.sort Stdlib.compare
+let sort_desc_list lst = (List.rev << List.sort Stdlib.compare) lst
 
-(* library test *)
-(* TODO *)
+(* library test: see exercises_test.ml *)
 
 (* library puzzle *)
-let last_elem = List.hd << List.rev
+let last_elem lst = (List.hd << List.rev) lst
 
 (* take drop *)
 let rec take n = function
@@ -253,16 +251,15 @@ let rec same_shape t1 = function
 
 (* list max exn *)
 let list_max = function
-  | [] -> None
-  | lst -> Some (List.fold_left max 0 lst)
+  | [] -> failwith "list_max"
+  | lst -> List.fold_left max 0 lst
 
 (* list max exn string *)
 let list_max_string = function
   | [] -> "empty"
   | lst -> List.fold_left max 0 lst |> string_of_int
 
-(* list max exn ounit *)
-(* TODO *)
+(* list max exn ounit: see exercises_test.ml *)
 
 (* is_bst *)
 let is_bst t =
