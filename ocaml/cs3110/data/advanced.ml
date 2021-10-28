@@ -210,4 +210,81 @@ let _ =
   | exception (Failure s) -> s
 
 (* OUnit can test for exceptions using the `assert_raises exc thunk`
- * function*)
+ * function *)
+
+(* example: trees *)
+type 'a tree =
+  | Leaf
+  | Node of 'a * 'a tree * 'a tree
+
+(* sample tree *)
+let t =
+  Node (4,
+        Node (2,
+              Node (1,Leaf,Leaf),
+              Node (3,Leaf,Leaf)),
+        Node (5,
+              Node (6,Leaf,Leaf),
+              Node (7,Leaf,Leaf)))
+
+let rec size = function
+  | Leaf -> 0
+  | Node (_,l,r) -> 1 + size l + size r
+
+let rec mem x = function
+  | Leaf -> false
+  | Node (v,l,r) -> v=x || mem x l || mem x r
+
+let rec preorder = function
+  | Leaf -> []
+  | Node (v,l,r) -> v :: (preorder l @ preorder r)
+
+let preorder t =
+  (* more efficient preorder; linear time accumulate from rtl*)
+  let rec pre_acc acc = function
+    | Leaf -> acc
+    | Node (v,l,r) -> v :: pre_acc (pre_acc acc r) l
+  in pre_acc [] t
+
+let _ = size t
+
+(* the same can be used with a record type, in that they are both
+ * product types; a record is basically a tuple type with named fields *)
+
+(* example: natural numbers *)
+type nat = Zero | Succ of nat
+
+let zero = Zero
+let one = Succ zero
+let two = Succ one
+let three = Succ two
+let four = Succ three
+let five = Succ four
+
+let iszero = function
+  | Zero -> true
+  | Succ _ -> false
+
+let pred = function
+  | Zero -> failwith "pred Zero is undefined"
+  | Succ m -> m
+
+let rec add n1 = function
+  | Zero -> n1
+  | Succ n2_minus_1 -> add (Succ n1) n2_minus_1
+
+let rec int_of_nat = function
+  | Zero -> 0
+  | Succ n_minus_1 -> 1 + int_of_nat n_minus_1
+
+let rec nat_of_int = function
+  | 0 -> Zero
+  | n when n > 0 -> Succ (nat_of_int (n-1))
+  | _ -> failwith "nat_of_int is undefined on negative ints"
+
+let rec even = function
+  | Zero -> true
+  | Succ n -> odd n
+and odd = function
+  | Zero -> false
+  | Succ n -> even n
