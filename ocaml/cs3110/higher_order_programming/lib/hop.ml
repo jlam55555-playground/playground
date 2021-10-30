@@ -1,3 +1,6 @@
+module Helpers = Helpers
+open Helpers
+
 (* higher-order programming *)
 let double x = 2 * x
 let square x = x * x
@@ -77,7 +80,7 @@ type 'a tree = Leaf | Tree of 'a * 'a tree * 'a tree
 
 let rec foldtree init f = function
   | Leaf -> init
-  | Tree (v,l,r) -> f v (foldtree init op l) (foldtree init op r)
+  | Tree (v,l,r) -> f v (foldtree init f l) (foldtree init f r)
 
 let size t = foldtree 0 (fun _ l r -> 1 + l + r) t
 let depth t = foldtree 0 (fun _ l r -> 1 + max l r) t
@@ -95,3 +98,29 @@ let preorder t = foldtree [] (fun x l r -> [x] @ l @ r) t
  *
  * This technique constructs something called a "catamorphism", or a
  * generalized fold operation *)
+
+(* pipelining is very natural and reads top-to-bottom or left-to-right
+ * as opposed to normal function composition (rtl) or explicit loops/recursion
+ * (difficult to quickly grok). E.g., sum of squares: *)
+let sum_sq_1 n =
+  (* recursive, difficult to read and write *)
+  let rec loop i sum =
+    if i>n then sum
+    else loop (i+1) (sum + square i)
+  in loop 0 0
+
+let sum_sq_2 n =
+  (* pipelining, elegant *)
+  0 -- n
+  |> List.map square
+  |> sum
+
+let sum_sq_3 n =
+  (* regular composition reads rtl (inside-to-outside) *)
+  sum (List.map square (0 -- n))
+
+let sum_sq_4 n =
+  (* lots of let statements to read top-to-bottom w/o pipelining *)
+  let l = 0 -- n in
+  let sq_l = List.map square l in
+  sum sq_l
