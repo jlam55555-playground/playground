@@ -1,4 +1,6 @@
 module Helpers = Helpers
+module Exercises = Exercises
+
 open Helpers
 
 (* higher-order programming *)

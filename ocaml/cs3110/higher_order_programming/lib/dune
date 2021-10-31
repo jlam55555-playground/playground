@@ -1,2 +1,3 @@
 (library
- (name hop))
+ (name hop)
+ (libraries ounit2))

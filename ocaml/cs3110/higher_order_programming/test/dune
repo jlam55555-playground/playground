@@ -1,2 +1,3 @@
 (test
- (name higher_order_programming))
+ (name exercises_test)
+ (libraries ounit2 hop))
