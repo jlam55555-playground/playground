@@ -134,3 +134,52 @@ end
 (* we can use the `includes` statement in a module to include
  * all the values defined by another structure (or analogously
  * for signatures) *)
+
+(* functors are functions (-ish) from modules to modules
+ *
+ * they are not ordinary functions because modules are not first-
+ * class in OCaml, i.e., the language is "stratified".
+ *
+ * we can also think of these as parameterized structures
+ * 
+ * example: *)
+module type X = sig
+  val x : int
+end
+
+module IncX (M: X) = struct
+  let x = M.x + 1
+end
+
+module A = struct let x = 0 end
+module B = IncX (A)
+module C = IncX (B)
+
+(* why "functor": analogy between the idea of categories
+ * (which contain morphisms) and structures (which contain
+ * functions); mapping between categories is known as
+ * a functor *)
+
+(* alternative syntax for functors *)
+module IncX2 = functor (M: X) -> struct
+  let x = M.x + 1
+end
+
+(* a higher-order functor is analogous to higher-order
+ * functions: *)
+module IncX3 (M1: X) (M2: X) = struct
+  let x = M1.x + M2.x
+end
+
+module IncX4 = functor (M1: X) (M2: X) -> struct
+  let x = M1.x + M2.x
+end
+
+module IncX5 = functor (M1: X) -> functor (M2: X) -> struct
+  let x = M1.x + M2.x
+end
+
+(* functors can be used to create a test suite for
+ * multiple structures *)
+
+(* anonymous structures can be passed into functors *)
