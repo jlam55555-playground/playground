@@ -7,10 +7,13 @@
 #include <utility>
 #include <vector>
 
+#include "./codegen.h"
+
 // ExprAST - Base class for all expression nodes.
 class ExprAST {
 public:
   virtual ~ExprAST() {}
+  virtual llvm::Value *codegen() = 0;
 };
 
 // NumberExprAST - Expression class for numeric literals like "1.0"
